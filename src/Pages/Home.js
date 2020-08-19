@@ -84,7 +84,7 @@ function Home() {
          
           <Grid item xs={6} className={classes.emptyGrid} />
           <Grid item xs={12} md={2}>
-            <Link className={classes.link}>
+            <Link to="/portfolio" className={classes.link}>
               {/* to="/login" */}
               <Button className={classes.buttonScale} color="primary" variant="outlined">
                 Portfolio
@@ -110,7 +110,7 @@ function Home() {
         <Grid container style={{paddingTop:'10%',}} spacing={2}>
           <Grid item xs={6} className={classes.emptyGrid}/>
           <Grid item xs={12} md={6} >
-            <a href="http://www.google.com" className={classes.ref} target='blank'>
+            <a href="https://www.instagram.com/kj_photography_wi/" className={classes.ref} target='blank'>
             <InstagramIcon />
             </a>
             <a href="http://www.google.com" className={classes.ref} target='blank' >
