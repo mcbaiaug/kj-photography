@@ -20,51 +20,42 @@ const useStyles = makeStyles((theme) => ({
   link: {
     // textDecoration: 'none',
     textDecorationColor: 'white',
-
   },
-  buttonScale: {
+  button: {
     fontSize: '1.3rem',
-    color: '#00a0a0',
-    textDecoration: 'underlined',
+    color: theme.palette.secondary.main,
+    // textDecoration: 'underlined',
     border: 'black',
-
   },
-  ref:{
-    textDecoration:'none',
-    color:'white',
-
-  }
+  ref: {
+    textDecoration: 'none',
+    color: 'white',
+  },
 }))
 function Navbar() {
   const classes = useStyles()
+
+
+
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" style={{ paddingBottom: '.4rem' }}>
         <Toolbar>
-       {/* FIXME: Find a better way to do this rather than wrapping a button within a link */}
-        <Link className={classes.link}>
-            <Button className={classes.buttonScale} color="primary" variant="outlined">
-              About
-            </Button>
-          </Link>
-          <Link className={classes.link}>
-            <Button className={classes.buttonScale} color="primary" variant="outlined">
-              Portfolio
-            </Button>
-          </Link>
-        <Typography style={{ fontFamily: 'Allura-Regular', flexGrow:1, }} variant="h3">
+          <Button component={Link} href='/' variant='outlined' className={classes.button}>
+            Home
+          </Button>
+          <Button component={Link} href="/about" variant='outlined' className={classes.button}>
+            About
+          </Button>
+          <Typography style={{ fontFamily: 'Allura-Regular', flexGrow: 1 }} variant="h3">
             KJ Photography
           </Typography>
-          <Link className={classes.link}>
-            <Button className={classes.buttonScale} color="primary" variant="outlined">
-              Pricing
-            </Button>
-          </Link>
-          <Link className={classes.link}>
-            <Button className={classes.buttonScale} color="primary" variant="outlined">
-              Contact
-            </Button>
-          </Link>
+          <Button component={Link} href="/pricing" variant='outlined' className={classes.button}>
+            Pricing
+          </Button>
+          <Button component={Link} href="/contact" variant='outlined' className={classes.button}>
+            Contact
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

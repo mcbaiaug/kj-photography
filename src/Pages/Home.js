@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonScale: {
     fontSize: '2rem',
-    color: '#00a0a0',
+    color: theme.palette.secondary.main,
     textDecoration: 'underlined',
     border: 'black',
 
@@ -92,14 +92,14 @@ function Home() {
             </Link>
           </Grid>
           <Grid item xs={12} md={2}>
-            <Link className={classes.link}>
+            <Link className={classes.link} to="/about">
               <Button className={classes.buttonScale} color="primary" variant="outlined" >
                 About
               </Button>
             </Link>
           </Grid>
           <Grid item xs={12} md={2}>
-            <Link className={classes.link}>
+            <Link className={classes.link} to="/contact">
               <Button className={classes.buttonScale} color="primary" variant="outlined" >
                 Contact
               </Button>
