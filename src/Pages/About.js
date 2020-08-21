@@ -3,7 +3,6 @@ import Navbar from '../Components/Navbar'
 import { Grid, Typography, Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import profile from './../Images/Profile.jpg'
-import Portfolio from './Portfolio/Portfolio'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -105,7 +104,7 @@ function About() {
           </Grid>
         </Grid>
         <Grid item xs={12} className={classes.imageContainer} sm={4}>
-          <img src={profile} className={classes.img}></img>
+          <img src={profile} className={classes.img} alt=' of KJ'></img>
         </Grid>
       </Grid>
 

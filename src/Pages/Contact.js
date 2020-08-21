@@ -9,6 +9,8 @@ import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import ValidationField from '../Components/ValidationField'
+import emailjs from 'emailjs-com'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,18 +39,25 @@ const useStyles = makeStyles((theme) => ({
 
 function Contact() {
   const classes = useStyles()
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
   const [subject, setSubject] = useState('')
   const [description, setDescription] = useState('')
-  const [phone, setPhone] = useState('')
-  
-
 
   // console.log(date)
-  
 
+  function sendEmail(e) {
+    // console.log(e)
+    // e.preventDefault()
+    // e.preventDefault()
+    emailjs.sendForm('kj', 'kj_photography', e.target, 'user_z4l3HmMlqcbrsI9k53dve').then(
+      (result) => {
+        console.log(result.text)
+      },
+      (error) => {
+        console.log(error.text)
+      }
+    )
+    e.target.reset()
+  }
 
   function Copyright() {
     return (
@@ -66,17 +75,18 @@ function Contact() {
   return (
     <React.Fragment>
       <Navbar />
-  
+
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         <div className={classes.paper}>
           <Typography variant="h4" style={{ fontFamily: 'Allura-Regular' }}>
             Contact
           </Typography>
-          <form className={classes.form} noValidate>
+          {/* FIXME: Add a submit function https://rangle.io/blog/simplifying-controlled-inputs-with-hooks/ */}
+          <form className={classes.form} onSubmit={sendEmail} noValidate>
             <Grid container spacing={4}>
               <Grid item xs={6}>
-                <TextField
+                {/* <TextField
                   variant="outlined"
                   required
                   fullWidth
@@ -89,59 +99,35 @@ function Contact() {
                   onChange={(e) => {
                     setFirstName(e.target.value)
                   }}
-                />
+                /> */}
+                <ValidationField name="First Name" id="given-name " isRequired />
               </Grid>
               <Grid item xs={6}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="family-name"
-                  name="Last Name"
-                  label="Last Name"
-                  value={lastName}
-                  color="secondary"
-                  // autoComplete='family-name'
-                  onChange={(e) => {
-                    setLastName(e.target.value)
-                  }}
-                />
+                <ValidationField autoComplete="family-name" id="family-name" name="Last Name" isRequired />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="email" //for screen readers
-                  name="Email Address"
-                  label="Email Address"
-                  autoComplete="email"
-                  value={email}
-                  color="secondary"
-                  onChange={(e) => {
-                    setEmail(e.target.value)
-                  }}
-                />
+                <ValidationField autoComplete="email" id="email" isEmail name="Email Address" isRequired />
               </Grid>
 
               <Grid item xs={6}>
                 <TextField
                   fullWidth
                   id="date"
-                  variant='outlined'
-                  color='secondary'
+                  variant="outlined"
+                  color="secondary"
                   label="Select a Date"
                   type="date"
-                  defaultValue={(new Date()).toISOString().slice(0,10)}
+                  name='Date'
+                  defaultValue={new Date().toISOString().slice(0, 10)}
                   className={classes.textField}
                   InputLabelProps={{
-                    shrink: true, 
+                    shrink: true,
                   }}
                 />
               </Grid>
 
-              <Grid item  xs={6}>
-                <TextField
+              <Grid item xs={6}>
+                {/* <TextField
                   variant="outlined"
                   required
                   fullWidth
@@ -153,7 +139,8 @@ function Contact() {
                   onChange={(e) => {
                     setPhone(e.target.value)
                   }}
-                />
+                /> */}
+                <ValidationField id="phone number" name="Phone Number" isRequired />
               </Grid>
 
               <Grid item xs={12}>
@@ -188,15 +175,14 @@ function Contact() {
             </Grid>
             <Button
               type="submit"
-              onClick={() => {
-                // setLoggedIn(true)
-              }}
               fullWidth
               variant="contained"
               className={classes.submit}
+              onClick={(event)=> sendEmail(event)}
             >
               Submit
             </Button>
+            {/* <input type="submit" value="Submit"></input> */}
             <Grid container justify="center">
               {/* <Grid item>
                 <Link href="/register" variant="body1" color="secondary">
