@@ -11,6 +11,11 @@ import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import ValidationField from '../Components/ValidationField'
 import emailjs from 'emailjs-com'
+import Select from '@material-ui/core/Select'
+import NativeSelect from '@material-ui/core/NativeSelect'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import FormControl from '@material-ui/core/FormControl'
+import InputLabel from '@material-ui/core/InputLabel';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,28 +40,36 @@ const useStyles = makeStyles((theme) => ({
   formText: {
     fontFamily: 'Allura-Regular',
   },
+  select: {
+    // textDecoration: 'none',
+    // backgroundColor: 'transparent',
+    color: 'secondary',
+  },
 }))
 
-function Contact() {
+function Contact(props) {
   const classes = useStyles()
   const [subject, setSubject] = useState('')
   const [description, setDescription] = useState('')
+  const [session, setSession] = useState(props.match.params.session)
 
   // console.log(date)
 
   function sendEmail(e) {
-    // console.log(e)
-    // e.preventDefault()
-    // e.preventDefault()
-    emailjs.sendForm('kj', 'kj_photography', e.target, 'user_z4l3HmMlqcbrsI9k53dve').then(
-      (result) => {
-        console.log(result.text)
-      },
-      (error) => {
-        console.log(error.text)
-      }
-    )
+    e.preventDefault()
+    console.log(e.target)
+    // console.log(e.target.value)
+
+    // emailjs.sendForm('kj', 'kj_photography', e.target, 'user_z4l3HmMlqcbrsI9k53dve').then(
+    //   (result) => {
+    //     console.log(result.text)
+    //   },
+    //   (error) => {
+    //     console.log(error.text)
+    //   }
+    // )
     e.target.reset()
+    // e.preventDefault()
   }
 
   function Copyright() {
@@ -81,9 +94,13 @@ function Contact() {
         <div className={classes.paper}>
           <Typography variant="h4" style={{ fontFamily: 'Allura-Regular' }}>
             Contact
+            {/* {JSON.stringify(props)} */}
+            {/* {props.path.params.session} */}
+            {/* {console.log(props.match.params.session)} */}
           </Typography>
           {/* FIXME: Add a submit function https://rangle.io/blog/simplifying-controlled-inputs-with-hooks/ */}
-          <form className={classes.form} onSubmit={sendEmail} noValidate>
+          {/* onSubmit={(event)=> sendEmail(event)} */}
+          <form className={classes.form} onSubmit={(event) => sendEmail(event)} noValidate>
             <Grid container spacing={4}>
               <Grid item xs={6}>
                 {/* <TextField
@@ -117,7 +134,7 @@ function Contact() {
                   color="secondary"
                   label="Select a Date"
                   type="date"
-                  name='Date'
+                  name="Date"
                   defaultValue={new Date().toISOString().slice(0, 10)}
                   className={classes.textField}
                   InputLabelProps={{
@@ -127,24 +144,11 @@ function Contact() {
               </Grid>
 
               <Grid item xs={6}>
-                {/* <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="phone number" //for screen readers
-                  name="phone number"
-                  label="Phone Number"
-                  value={phone}
-                  color="secondary"
-                  onChange={(e) => {
-                    setPhone(e.target.value)
-                  }}
-                /> */}
                 <ValidationField id="phone number" name="Phone Number" isRequired />
               </Grid>
 
               <Grid item xs={12}>
-                <TextField
+                {/* <TextField
                   variant="outlined"
                   fullWidth
                   id="subject" //for screen readers
@@ -155,7 +159,29 @@ function Contact() {
                   onChange={(e) => {
                     setSubject(e.target.value)
                   }}
-                />
+                /> */}
+                <FormControl maxWidth style={{minWidth:'100%'}}>
+                  <InputLabel htmlFor="">Session</InputLabel>
+                  <Select
+                    defaultValue='Session Type'
+                    color='secondary'
+                    value={session}
+                    required
+                    onChange={(e) => setSession(e.target.value)}
+                    variant='outlined'
+                    // inputProps={{
+                
+                    // }}
+                  >
+                    <option aria-label="Highscool Senior Session" value={'senior-session'}>Highschool Senior Session</option>
+                    <option aria-label="Content Creator Session" value={'content-creator'}>Content Creator Session</option>
+                    <option aria-label="Solo Session" value={'solo-session'}>Solo Session</option>
+                    <option aria-label="Family Session" value={'family-session'}>Family Session</option>
+                    <option aria-label="Boudoir Session" value={'boudoir-session'}>Boudoir Session</option>
+                    <option aria-label="Other" value={'other'}>Other</option>
+                  </Select>
+                  {(session==='other')&&<FormHelperText >Please leave a description of what you would like!</FormHelperText>}
+                </FormControl>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -178,7 +204,7 @@ function Contact() {
               fullWidth
               variant="contained"
               className={classes.submit}
-              onClick={(event)=> sendEmail(event)}
+              // onClick={(event)=> sendEmail(event)}
             >
               Submit
             </Button>

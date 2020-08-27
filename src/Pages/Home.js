@@ -59,6 +59,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+
+//FIXME: Move the picture to the left so there is no longer a point of contention between kerstyn's head and the buttons also add pricing
 function Home() {
   const classes = useStyles()
 
@@ -92,9 +94,9 @@ function Home() {
             </Link>
           </Grid>
           <Grid item xs={12} md={2}>
-            <Link className={classes.link} to="/about">
+            <Link className={classes.link} to="/pricing">
               <Button className={classes.buttonScale} color="primary" variant="outlined" >
-                About
+                Pricing
               </Button>
             </Link>
           </Grid>

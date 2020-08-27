@@ -1,12 +1,15 @@
 import React from 'react'
 import Navbar from '../../Components/Navbar'
-// import { makeStyles } from '@material-ui/core/styles'
-// import GridList from '@material-ui/core/GridList'
-// import GridListTile from '@material-ui/core/GridListTile'
-// import GridListTileBar from '@material-ui/core/GridListTileBar'
-// import IconButton from '@material-ui/core/IconButton'
-// import StarBorderIcon from '@material-ui/icons/StarBorder'
-// import tileData from './images'
+import { makeStyles } from '@material-ui/core/styles';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import images from './images'
+import GridListTileBar from "@material-ui/core/GridListTileBar";
+import IconButton from "@material-ui/core/IconButton";
+import InfoIcon from "@material-ui/icons/Info";
+
+
+
 
 
 
@@ -34,35 +37,54 @@ import Navbar from '../../Components/Navbar'
 //   },
 // }))
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
+  },
+  gridList: {
+   width:'auto',
+   height:'auto',
+  },
+}));
 function Portfolio() {
-  // const classes = useStyles()
+  const classes = useStyles()
 
+
+  const handleClickOpen = tile => {
+    // setSelectedTile(tile);
+    console.log("clicked");
+    console.log(tile);
+  };
   return (
     <div>
       <Navbar />
-      {/* <div className={classes.root}> */}
-      {/* <img src='./Images'/> */}
-
-        {/* <GridList cellHeight={200} spacing={1} className={classes.gridList}>
-          {tileData.map((tile) => (
-            // cols={tile.featured ? 2 : 1} rows={tile.featured ? 2 : 1}
-            <GridListTile key={tile.id} cols={4} rows={3} >
-              <img src='./../../Images/KerstynBW.jpg' alt={tile.title} />
-              <GridListTileBar
-                title={tile.title}
-                titlePosition="top"
-                actionIcon={
-                  <IconButton aria-label={`star ${tile.title}`} className={classes.icon}>
-                    <StarBorderIcon />
-                  </IconButton>
-                }
-                actionPosition="left"
-                className={classes.titleBar}
-              />
-            </GridListTile>
-          ))}
-        </GridList> */}
-      {/* </div> */}
+      <div className={classes.root}>
+      <GridList  className={classes.gridList} cols={4} spacing={4}>
+        {images.map((tile) => (
+          <GridListTile  key={tile.img}>
+            <img style={{  }} src={tile.src} alt={tile.title} />
+            <GridListTileBar
+              title={tile.title}
+              // subtitle={<span>by: {tile.author}</span>}
+              actionIcon={
+                <IconButton
+                  aria-label={`info about ${tile.title}`}
+                  className={classes.icon}
+                  value={tile.id}
+                  onClick={() => handleClickOpen(tile)}
+                >
+                  <InfoIcon />
+                </IconButton>
+              }
+            />
+          </GridListTile>
+        ))}
+      </GridList>
+    </div>
     </div>
   )
 }
