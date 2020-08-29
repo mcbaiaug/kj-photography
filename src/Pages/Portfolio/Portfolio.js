@@ -10,6 +10,7 @@ import Footer from '../../Components/Footer'
 import AspectRatioSharpIcon from '@material-ui/icons/AspectRatioSharp'
 import ClearIcon from '@material-ui/icons/Clear'
 import useWindowDimensions from '../../Components/useWindowDimensions'
+import LazyLoad from 'react-lazyload'
 
 const useStyles = makeStyles((theme) => ({
   root: {
