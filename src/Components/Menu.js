@@ -12,6 +12,7 @@ import Link from '@material-ui/core/Link'
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    zIndex:20,
   },
   paper: {
     marginRight: theme.spacing(2),
@@ -30,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-// FIXME: Pictures on pricing go under carousel
 function Menu() {
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)

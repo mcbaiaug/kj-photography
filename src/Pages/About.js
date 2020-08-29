@@ -3,6 +3,7 @@ import Navbar from '../Components/Navbar'
 import { Grid, Typography, Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import profile from './../Images/Profile.jpg'
+import Footer from '../Components/Footer'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -63,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 function About() {
   const classes = useStyles()
   return (
-    <div>
+    <div style={{overflow:'hidden'}}>
       <Navbar />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8} className={classes.textContainer} >
@@ -107,6 +108,7 @@ function About() {
           <img src={profile} className={classes.img} alt=' of KJ'></img>
         </Grid>
       </Grid>
+      <Footer />
 
       {/* <Grid container spacing={2} justify='center'>
       <Grid item xs={12} sm={8}></Grid>

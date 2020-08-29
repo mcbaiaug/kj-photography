@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
-import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
@@ -12,10 +11,10 @@ import Container from '@material-ui/core/Container'
 import ValidationField from '../Components/ValidationField'
 import emailjs from 'emailjs-com'
 import Select from '@material-ui/core/Select'
-import NativeSelect from '@material-ui/core/NativeSelect'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel';
+import Footer from '../Components/Footer'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -49,15 +48,14 @@ const useStyles = makeStyles((theme) => ({
 
 function Contact(props) {
   const classes = useStyles()
-  const [subject, setSubject] = useState('')
   const [description, setDescription] = useState('')
   const [session, setSession] = useState(props.match.params.session)
 
   // console.log(date)
 
   function sendEmail(e) {
-    e.preventDefault()
-    console.log(e.target)
+    // e.preventDefault()
+    // console.log(e.target)
     // console.log(e.target.value)
 
     // emailjs.sendForm('kj', 'kj_photography', e.target, 'user_z4l3HmMlqcbrsI9k53dve').then(
@@ -72,18 +70,18 @@ function Contact(props) {
     // e.preventDefault()
   }
 
-  function Copyright() {
-    return (
-      <Typography variant="body1" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" href="https://material-ui.com/">
-          Companion
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    )
-  }
+  // function Copyright() {
+  //   return (
+  //     <Typography variant="body1" color="textSecondary" align="center">
+  //       {'Copyright © '}
+  //       <Link color="inherit" href="https://material-ui.com/">
+  //         Companion
+  //       </Link>{' '}
+  //       {new Date().getFullYear()}
+  //       {'.'}
+  //     </Typography>
+  //   )
+  // }
 
   return (
     <React.Fragment>
@@ -219,9 +217,10 @@ function Contact(props) {
           </form>
         </div>
         <Box mt={5}>
-          <Copyright />
+          {/* <Copyright /> */}
         </Box>
       </Container>
+      <Footer />
     </React.Fragment>
   )
 }

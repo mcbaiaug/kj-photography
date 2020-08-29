@@ -9,8 +9,9 @@ import content2 from './../../Images/content2.jpg'
 import content3 from './../../Images/Wynonah-Product.jpg'
 
 
+
 export const CardInfo = [
- { id:0, title:" ", desc: "Choose a Session!", pictures:[pic1,pic2,pic3]},
+ { id:0, title:"Sessions", desc: "Choose a Session!", pictures:[pic1,pic2,pic3]},
  { id:1, title:"Senior Session", value:'senior-session', desc: "Sign up for a Senior Session!", pictures:[pic1,pic2,pic3]},
  { id:2, title:"Family Session", value:'family-session', desc: "Sign up for a Family Session!", pictures:[pic1,pic2,pic3]},
  { id:3, title:"Content Creator", value:'content-creator',desc: "Sign up for a Content Creator Session!", pictures:[content1,content2,content3]},

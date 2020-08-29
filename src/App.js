@@ -18,6 +18,7 @@ function App() {
           <Route path="/about" component={About} />
           <Route path="/pricing" component={Pricing} />
           <Route path="/contact/:session" render={(props) => <Contact {...props} />} />
+          <Route path="/contact/" component={Contact}/>
           {/* <PrivateRoute path="/admin" component={Admin} /> */}
           {/* <Route path="/dashboard" component={Dashboard} /> */}
         </Switch>
