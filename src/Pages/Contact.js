@@ -9,12 +9,16 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import ValidationField from '../Components/ValidationField'
-import emailjs from 'emailjs-com'
+// import emailjs from 'emailjs-com'
 import Select from '@material-ui/core/Select'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControl from '@material-ui/core/FormControl'
-import InputLabel from '@material-ui/core/InputLabel';
+import InputLabel from '@material-ui/core/InputLabel'
 import Footer from '../Components/Footer'
+import Snackbar from '@material-ui/core/Snackbar'
+import MuiAlert from '@material-ui/lab/Alert'
+import MenuItem from '@material-ui/core/MenuItem'
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -44,17 +48,38 @@ const useStyles = makeStyles((theme) => ({
     // backgroundColor: 'transparent',
     color: 'secondary',
   },
+  highlight:{
+    '&:focus': {
+      backgroundColor: theme.palette.primary.main,
+      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+        color: theme.palette.common.white,
+      },
+    },
+  },
 }))
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />
+}
 
 function Contact(props) {
   const classes = useStyles()
   const [description, setDescription] = useState('')
   const [session, setSession] = useState(props.match.params.session)
+  const [open, setOpen] = useState(false)
 
   // console.log(date)
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+
+    setOpen(false)
+  }
+
   function sendEmail(e) {
-    // e.preventDefault()
+    e.preventDefault()
     // console.log(e.target)
     // console.log(e.target.value)
 
@@ -90,7 +115,7 @@ function Contact(props) {
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         <div className={classes.paper}>
-          <Typography variant="h4" style={{ fontFamily: 'Allura-Regular' }}>
+          <Typography variant="h4" style={{ fontFamily: 'Allura-Regular', fontDisplay: 'swap' }}>
             Contact
             {/* {JSON.stringify(props)} */}
             {/* {props.path.params.session} */}
@@ -100,7 +125,7 @@ function Contact(props) {
           {/* onSubmit={(event)=> sendEmail(event)} */}
           <form className={classes.form} onSubmit={(event) => sendEmail(event)} noValidate>
             <Grid container spacing={4}>
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 {/* <TextField
                   variant="outlined"
                   required
@@ -117,14 +142,14 @@ function Contact(props) {
                 /> */}
                 <ValidationField name="First Name" id="given-name " isRequired />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <ValidationField autoComplete="family-name" id="family-name" name="Last Name" isRequired />
               </Grid>
               <Grid item xs={12}>
                 <ValidationField autoComplete="email" id="email" isEmail name="Email Address" isRequired />
               </Grid>
 
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
                   id="date"
@@ -141,7 +166,7 @@ function Contact(props) {
                 />
               </Grid>
 
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <ValidationField id="phone number" name="Phone Number" isRequired />
               </Grid>
 
@@ -158,27 +183,49 @@ function Contact(props) {
                     setSubject(e.target.value)
                   }}
                 /> */}
-                <FormControl maxWidth style={{minWidth:'100%'}}>
+                <FormControl maxWidth style={{ minWidth: '100%' }}>
                   <InputLabel htmlFor="">Session</InputLabel>
                   <Select
-                    defaultValue='Session Type'
-                    color='secondary'
+                    defaultValue="Session Type"
+                    color="secondary"
                     value={session}
                     required
                     onChange={(e) => setSession(e.target.value)}
-                    variant='outlined'
+                    variant="outlined"
                     // inputProps={{
-                
+
                     // }}
                   >
-                    <option aria-label="Highscool Senior Session" value={'senior-session'}>Highschool Senior Session</option>
-                    <option aria-label="Content Creator Session" value={'content-creator'}>Content Creator Session</option>
-                    <option aria-label="Solo Session" value={'solo-session'}>Solo Session</option>
-                    <option aria-label="Family Session" value={'family-session'}>Family Session</option>
-                    <option aria-label="Boudoir Session" value={'boudoir-session'}>Boudoir Session</option>
-                    <option aria-label="Other" value={'other'}>Other</option>
+                    <MenuItem
+                      className={classes.highlight}
+                      aria-label="Highscool Senior Session"
+                      value={'senior-session'}
+                    >
+                      Highschool Senior Session
+                    </MenuItem>
+                    <MenuItem
+                      className={classes.highlight}
+                      aria-label="Content Creator Session"
+                      value={'content-creator'}
+                    >
+                      Content Creator Session
+                    </MenuItem>
+                    <MenuItem className={classes.highlight} aria-label="Solo Session" value={'solo-session'}>
+                      Solo Session
+                    </MenuItem>
+                    <MenuItem className={classes.highlight} aria-label="Family Session" value={'family-session'}>
+                      Family Session
+                    </MenuItem>
+                    <MenuItem className={classes.highlight} aria-label="Boudoir Session" value={'boudoir-session'}>
+                      Boudoir Session
+                    </MenuItem>
+                    <MenuItem className={classes.highlight} aria-label="Other" value={'other'}>
+                      Other
+                    </MenuItem>
                   </Select>
-                  {(session==='other')&&<FormHelperText >Please leave a description of what you would like!</FormHelperText>}
+                  {session === 'other' && (
+                    <FormHelperText>Please leave a description of what you would like!</FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
@@ -202,23 +249,19 @@ function Contact(props) {
               fullWidth
               variant="contained"
               className={classes.submit}
-              // onClick={(event)=> sendEmail(event)}
+              onClick={() => setOpen(true)}
             >
               Submit
             </Button>
             {/* <input type="submit" value="Submit"></input> */}
-            <Grid container justify="center">
-              {/* <Grid item>
-                <Link href="/register" variant="body1" color="secondary">
-                  Don't have an account? Sign Up
-                </Link>
-              </Grid> */}
-            </Grid>
           </form>
         </div>
-        <Box mt={5}>
-          {/* <Copyright /> */}
-        </Box>
+        <Snackbar open={open} autoHideDuration={80000} onClose={handleClose}>
+          <Alert severity="info" onClose={handleClose}>
+            Thank you! I will be sending an email shortly!
+          </Alert>
+        </Snackbar>
+        <Box mt={5}>{/* <Copyright /> */}</Box>
       </Container>
       <Footer />
     </React.Fragment>

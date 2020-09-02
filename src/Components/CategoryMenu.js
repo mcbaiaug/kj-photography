@@ -85,17 +85,17 @@ function Menu() {
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    <MenuItem component={Link} className={classes.link} href="/portfolio" onClick={handleClose}>
-                      Portfolio
+                    <MenuItem component={Button} className={classes.link} href="/portfolio" onClick={handleClose}>
+                      All Photos
                     </MenuItem>
-                    <MenuItem component={Link} className={classes.link} href="/about" onClick={handleClose}>
-                      About
+                    <MenuItem component={Button} className={classes.link} href="/about" onClick={handleClose}>
+                      Senior Portraits
                     </MenuItem>
-                    <MenuItem component={Link} className={classes.link} href="/pricing" onClick={handleClose}>
-                      Pricing
+                    <MenuItem component={Button} className={classes.link} href="/pricing" onClick={handleClose}>
+                      Family
                     </MenuItem>
-                    <MenuItem component={Link} className={classes.link} href="/contact" onClick={handleClose}>
-                      Contact
+                    <MenuItem component={Button} className={classes.link} href="/contact" onClick={handleClose}>
+                      Content Creator
                     </MenuItem>
                   </MenuList>
                 </ClickAwayListener>

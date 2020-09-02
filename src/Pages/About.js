@@ -70,7 +70,7 @@ function About() {
         <Grid item xs={12} sm={8} className={classes.textContainer} >
           <Grid container direction="column">
             <Grid item xs={12}>
-              <Typography variant="h3" style={{ fontFamily: 'Allura-Regular' }}>
+              <Typography variant="h3" style={{ fontFamily: 'Allura-Regular', fontDisplay: 'swap', }}>
                 About
               </Typography>
             </Grid>

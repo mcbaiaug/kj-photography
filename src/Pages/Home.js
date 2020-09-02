@@ -53,24 +53,25 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     color: 'white',
   },
+  title: {
+    fontFamily: 'Allura-Regular',
+    fontDisplay: 'swap',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '3.5rem',
+    },
+  },
 }))
 
 function Home() {
   const classes = useStyles()
 
   return (
-    <div style={{ overflow:'hidden' }}>
+    <div style={{ overflow: 'hidden' }}>
       <img src={deskBackground} alt="Black and white self-portrait, taken on a road." className={classes.bg}></img>
-      <Grid
-        container
-        spacing={2}
-        direction="row"
-        justify="center"
-        style={{ paddingTop: '15%' }}
-      >
+      <Grid container spacing={2} direction="row" justify="center" style={{ paddingTop: '15%' }}>
         <Grid item xs={6} className={classes.emptyGrid} />
         <Grid item xs={12} md={6}>
-          <Typography style={{ fontFamily: 'Allura-Regular' }} variant="h3">
+          <Typography className={classes.title} variant="h3">
             KJ Photography
           </Typography>
         </Grid>
