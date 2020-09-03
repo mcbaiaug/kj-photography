@@ -183,7 +183,7 @@ function Contact(props) {
                     setSubject(e.target.value)
                   }}
                 /> */}
-                <FormControl maxWidth style={{ minWidth: '100%' }}>
+                <FormControl style={{ minWidth: '100%' }}>
                   <InputLabel htmlFor="">Session</InputLabel>
                   <Select
                     defaultValue="Session Type"

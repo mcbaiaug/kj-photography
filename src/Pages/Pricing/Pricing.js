@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
     
     [theme.breakpoints.down('sm')]: {
       marginRight: 0,
+  
       // height:'4rem',
     },
   },
@@ -53,12 +54,13 @@ const useStyles = makeStyles((theme) => ({
     borderStyle: 'solid',
     borderWidth: '5px',
     borderColor: theme.palette.secondary.dark,
+   
   },
   carousel: {
     height: '40rem',
     
-    [theme.breakpoints.down('sm')]: {
-      marginTop:'-50px',
+    [theme.breakpoints.down('xs')]: {
+      // marginTop:'-50px',
     },
   },
   img: {
@@ -103,12 +105,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   description:{
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.down('sm')]: {
       display:'none',
     },
   },
   rate:{
     marginLeft:'2rem',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft:'1rem',
+    },
   },
   extraFooterDesktop:{
     [theme.breakpoints.down('sm')]: {
@@ -116,6 +121,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   extraFooterMobile:{
+    display:'none',
     [theme.breakpoints.up('sm')]: {
       display:'none',
     },
@@ -155,12 +161,12 @@ function Pricing() {
   }
   return (
     <div style={{ overflow:'hidden', }}>
-      <Navbar />
+      <Navbar/>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={7} className={classes.textContainer}>
           <Grid container direction="column">
             <Grid item xs={12} className={classes.sessionTitle}>
-              <Typography variant="h3" style={{ fontFamily: 'Allura-Regular', fontDisplay: 'swap', }}>
+              <Typography variant="h4" style={{ fontFamily: 'Allura-Regular', fontDisplay: 'swap', }}>
                 {CardInfo[cardNum].title}
               </Typography>
             </Grid>
@@ -185,7 +191,8 @@ function Pricing() {
                 <Typography variant="h6" className={classes.rate} color="secondary" component="span">
                   $50
                 </Typography>
-                <Typography variant="body2" component="p" className={classes.description}>
+                {/* FIXME: Add a new test probably a function that is way less hacky than this approach */}
+                <Typography variant="body2" component="p" className={classes.description} style={1 === cardNum?{display:'block'}:{}}>
                   1 Hour - 1 1/2 Hours
                 </Typography>
               </CardContent>
@@ -200,7 +207,7 @@ function Pricing() {
                 <Typography variant="h6" className={classes.rate} color="secondary" component="span">
                   $40
                 </Typography>
-                <Typography variant="body2" component="p">
+                <Typography variant="body2" component="p" className={classes.description} style={1 === cardNum?{display:'block'}:{}}>
                   1 Hour
                 </Typography>
               </CardContent>
@@ -215,7 +222,7 @@ function Pricing() {
                 <Typography variant="h6" className={classes.rate} color="secondary" component="span">
                   $35/monthly
                 </Typography>
-                <Typography variant="body2" component="p">
+                <Typography variant="body2" component="p" className={classes.description} style={1 === cardNum?{display:'block'}:{}}>
                   45 Minutes - 1 Hour
                 </Typography>
               </CardContent>
@@ -230,7 +237,7 @@ function Pricing() {
                 <Typography variant="h6" className={classes.rate} color="secondary" component="span">
                   $40
                 </Typography>
-                <Typography variant="body2" component="p">
+                <Typography variant="body2" component="p" className={classes.description} style={1 === cardNum?{display:'block'}:{}}>
                   45 Minutes - 1 Hour
                 </Typography>
               </CardContent>
@@ -245,7 +252,7 @@ function Pricing() {
                 <Typography variant="h6" className={classes.rate} color="secondary" component="span">
                   $40
                 </Typography>
-                <Typography variant="body2" component="p">
+                <Typography variant="body2" component="p" className={classes.description} style={1 === cardNum?{display:'block'}:{}}>
                   1 Hour - 1 1/2 Hours
                 </Typography>
               </CardContent>
@@ -255,8 +262,8 @@ function Pricing() {
 
         </Grid>
       {/* <Footer style={{}} /> */}
+      <Footer  />
       </Grid>
-      <Footer className={classes.extraFooterMobile} />
     </div>
   )
 }
