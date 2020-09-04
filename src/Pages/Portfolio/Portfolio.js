@@ -1,16 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState,} from 'react'
 import Navbar from '../../Components/Navbar'
 import { makeStyles } from '@material-ui/core/styles'
-import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
-import images from './images'
-import GridListTileBar from '@material-ui/core/GridListTileBar'
-import IconButton from '@material-ui/core/IconButton'
+import photos from './photos'
 import Footer from '../../Components/Footer'
-import AspectRatioSharpIcon from '@material-ui/icons/AspectRatioSharp'
-import ClearIcon from '@material-ui/icons/Clear'
-import useWindowDimensions from '../../Components/useWindowDimensions'
-import LazyLoad from 'react-lazyload'
+import ResponsiveGallery from 'react-responsive-gallery'
+import Button from '@material-ui/core/Button'
+import ButtonGroup from '@material-ui/core/ButtonGroup'
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
+// import LazyLoad from 'react-lazyload'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,183 +19,144 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     // backgroundColor: theme.palette.background.paper,
   },
-  gridList: {
-    width: 'auto',
-    height: 'auto',
-  },
-  image: {
-    maxWidth: '100%',
-    maxHeight: '100%',
-    height: '30rem', //Was 45 rem
-    width: '100%',
-    objectFit: 'cover',
-  },
-  resize: {
-    width: 'auto',
-    // height: '5rem',
-    // maxHeight: '1vh',
-    backgroundColor: theme.palette.primary.dark,
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    // -webkit-transform: translate(-50%, -50%),
-    WebkitTransform: 'translate(-50%, -50%)',
-    transform: 'translate(-50%, -50%)',
-    zIndex: 10,
-  },
-  resizeImage: {
-    maxWidth: 'auto',
-    maxHeight: '100%',
-    height: '50rem',
-    [theme.breakpoints.down('sm')]: {
-      height: '35rem',
-    },
-    // width: 'auto',
-    // objectFit: 'cover',
-  },
-  blur: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-    WebkitFilter: 'blur(5px)',
-    MozFilter: 'blur(5px)',
-    OFilter: 'blur(5px)',
-    msFilter: 'blur(5px)',
-  },
-  x: {
-    position: 'absolute',
+  buttonGroup: {
+    position: 'sticky',
     top: 0,
-    right: 0,
-    opacity: 0.7,
+    margin: 'auto',
+    flexWrap: 'nowrap',
+    backgroundColor: theme.palette.primary.main,
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+  button: {
+    paddingLeft: '1.4rem',
+    paddingRight: '1.4rem',
+  },
+  select: {
+    width: '100%',
+    position: 'sticky',
+    backgroundColor: theme.palette.primary.main,
+
+    top: 0,
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
+  },
+  scroll: {
+    position: 'fixed',
+    zIndex: 10,
+    right: 20,
+    bottom: 20,
+    [theme.breakpoints.down('sm')]: {
+      bottom:50,
+    },
   },
 }))
 function Portfolio() {
-  // FIXME: Optimize the image grid also the resize images tab could open the image in a new page
   const classes = useStyles()
-  const [resize, setResize] = useState('')
-  const node = useRef()
-  const [open, setOpen] = useState(false)
-  const { width } = useWindowDimensions()
-  const [focus, setFocus] = useState(false)
-
-  // const handleClickOpen = (tile) => {
-  //   // setSelectedTile(tile);
-  //   console.log('clicked')
-  //   console.log(tile)
-  // }
-  // function handleResize(src, title){
-  //   console.log('effort given')
-  //   return(
-  //     <div className={classes.resize}>
-  //       <img src={pic1} alt={title}></img>
-  //     </div>
-  //   )
-  // }
-  function column() {
-    console.log('check')
-    if (width > 1400) {
-      return 4
-    }
-    // if(980>width<1400){
-    //   return 2
-    // }
-    if (width < 960) {
-      return 1
+  const [selected, setSelected] = useState([true, false, false, false, false])
+  const [gallery, setGallery] = useState(0)
+  const [showScroll, setShowScroll] = useState(false)
+  
+  const checkScrollTop = () => {
+    if (!showScroll && window.pageYOffset > 400) {
+      setShowScroll(true)
+    } else if (showScroll && window.pageYOffset <= 400) {
+      setShowScroll(false)
     }
   }
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClick)
-    return () => {
-      document.removeEventListener('mousedown', handleClick)
-    }
-  }, [])
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
-  // const handleChange = () => {
-  //   setOpen(false)
-  // }
+  // FIXME: Unbind this event
+  window.addEventListener('scroll', checkScrollTop)
 
-  const handleClick = (e) => {
-    if (node.current.contains(e.target)) {
-      // inside click
-      setOpen(false)
-      console.log('outside')
-      return
-    }
-    // outside click
-    console.log('inside')
+  function toggle(index) {
+    let newArr = [false, false, false, false, false]
+    newArr[index] = !newArr[index]
+    setSelected(newArr)
+    setGallery(index)
+    scrollTop()
   }
 
   return (
     <div>
       <Navbar />
-      {open && (
-        <div className={classes.resize}>
-          <IconButton
-            aria-label="close resize"
-            onClick={(e) => {
-              setOpen(!open)
-            }}
-            className={classes.x}
+      <div>
+        <ButtonGroup fullWidth className={classes.buttonGroup} size="small" variant="outlined">
+          <Button
+            className={classes.button}
+            size="small"
+            variant={selected[0] ? 'contained' : 'outlined'}
+            color="secondary"
+            onClick={() => toggle(0)}
           >
-            <ClearIcon />
-          </IconButton>
+            All Photos
+          </Button>
+          <Button
+            className={classes.button}
+            size="small"
+            variant={selected[1] ? 'contained' : 'outlined'}
+            color="secondary"
+            onClick={() => toggle(1)}
+          >
+            Senior Portraits
+          </Button>
+          <Button
+            className={classes.button}
+            size="small"
+            variant={selected[2] ? 'contained' : 'outlined'}
+            color="secondary"
+            onClick={() => toggle(2)}
+          >
+            Family
+          </Button>
+          <Button
+            className={classes.button}
+            size="small"
+            variant={selected[3] ? 'contained' : 'outlined'}
+            color="secondary"
+            onClick={() => toggle(3)}
+          >
+            Content Creator
+          </Button>
+          <Button
+            className={classes.button}
+            size="small"
+            variant={selected[4] ? 'contained' : 'outlined'}
+            color="secondary"
+            onClick={() => toggle(4)}
+          >
+            Solo Portrait
+          </Button>
+        </ButtonGroup>
+        {/* <FormControl className={classes.formControl}> */}
+        <Select
+          value={gallery}
+          className={classes.select}
+          onChange={(e) => toggle(e.target.value)}
+          defaultValue="All Photos"
+          color="secondary"
 
-          <img className={classes.resizeImage} src={resize} alt=""></img>
-        </div>
-      )}
-      <div className={open ? classes.blur : classes.root} ref={node}>
-        <GridList cellHeight="auto" spacing={10} cols={column()} className={classes.gridList}>
-          {images.map((tile) => (
-            <GridListTile key={tile.src}>
-              <img className={classes.image} src={tile.src} alt={tile.title} />
-              {console.log('render images')}
+          // displayEmpty
+          // className={classes.selectEmpty}
+          // inputProps={{ 'aria-label': 'Without label' }}
+        >
+          <MenuItem value={0}>All Photos</MenuItem>
+          <MenuItem value={1}>Senior Photos</MenuItem>
+          <MenuItem value={2}>Family Photos</MenuItem>
+          <MenuItem value={3}>Content Creator</MenuItem>
+          <MenuItem value={4}>Solo Photos</MenuItem>
+        </Select>
+        {/* <FormHelperText>Without label</FormHelperText> */}
+        {/* </FormControl> */}
 
-              <GridListTileBar
-                title={tile.title}
-                actionIcon={
-                  <IconButton
-                    aria-label={`resize ${tile.title}`}
-                    onClick={(e) => {
-                      setOpen(!open)
-                      setResize(tile.src)
-                    }}
-                    className={classes.icon}
-                  >
-                    <AspectRatioSharpIcon />
-                  </IconButton>
-                }
-              />
-            </GridListTile>
-          ))}
-        </GridList>
+        <ResponsiveGallery images={photos[gallery].src} useLightBox />
+        <ArrowUpwardIcon fontSize="large" onClick={scrollTop} className={classes.scroll} style={{ display: showScroll ? 'flex' : 'none'}} />
       </div>
-
-      {/* <div className={classes.root}>
-        <GridList cellHeight="auto" className={classes.gridList} cols={4} spacing={4}>
-          {images.map((tile) => (
-            <GridListTile key={tile.img}>
-              <img className={classes.image} src={tile.src} alt={tile.title} />
-              {/* <GridListTileBar
-              title={tile.title}
-              // subtitle={<span>by: {tile.author}</span>}
-              actionIcon={
-                <IconButton
-                  aria-label={`info about ${tile.title}`}
-                  className={classes.icon}
-                  value={tile.id}
-                  onClick={() => handleClickOpen(tile)}
-                >
-                  <InfoIcon />
-                </IconButton>
-              }
-      //       /> */}
-      {/* //       </GridListTile> */}
-      {/* //     ))} */}
-      {/* //   </GridList> */}
-      {/* // </div> */}
       <Footer />
     </div>
   )

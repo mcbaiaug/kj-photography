@@ -11,6 +11,10 @@ const useStyles = makeStyles((theme) => ({
     bottom:0,
     overflow:'hidden',
     width:'100%',
+    [theme.breakpoints.down('sm')]: {
+      order:3,
+      marginBottom:'30px',
+    },
     // marginBottom:'.5rem'
     // marginTop:'2rem',
 

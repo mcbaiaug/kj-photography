@@ -15,7 +15,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1,
+    fontFamily: 'Allura-Regular',
+     fontDisplay: 'swap', 
+     [theme.breakpoints.down('sm')]: {
+      fontSize:'3.2rem',
+    },
   },
   link: {
     // textDecoration: 'none',
@@ -38,10 +42,11 @@ const useStyles = makeStyles((theme) => ({
   menu: {
     marginLeft: 'auto',
     marginRight: 'auto',
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       display: 'none',
     },
   },
+
 }))
 function Navbar() {
   const classes = useStyles()
@@ -57,14 +62,14 @@ function Navbar() {
             About
           </Button>
           <a href="/" style={{ textDecoration: 'none', color: 'white', flexGrow: 1 }}>
-            <Typography style={{ fontFamily: 'Allura-Regular' }} variant="h3">
+            <Typography className={classes.title} variant="h3">
               KJ Photography
             </Typography>
           </a>
           <Button component={Link} href="/pricing" variant="outlined" className={classes.button}>
             Pricing
           </Button>
-          <Button component={Link} href="/contact" variant="outlined" className={classes.button}>
+          <Button component={Link} href="/contact/senior-session" variant="outlined" className={classes.button}>
             Contact
           </Button>
         </Toolbar>
