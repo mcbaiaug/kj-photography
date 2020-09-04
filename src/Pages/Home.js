@@ -93,7 +93,7 @@ function Home() {
             </Link>
           </Grid>
           <Grid item xs={12} md={4} lg={2}>
-            <Link className={classes.link} to="/contact">
+            <Link className={classes.link} to="/contact/senior-session">
               <Button className={classes.buttonScale} color="primary" variant="outlined">
                 Contact
               </Button>

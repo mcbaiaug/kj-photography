@@ -9,6 +9,10 @@ import theme from './theme'
 import './fonts/Allura-Regular.ttf'
 
 
+
+
+
+
 ReactDOM.render(
   // <React.StrictMode>
     <ThemeProvider theme={theme}>

@@ -94,7 +94,7 @@ function Menu() {
                     <MenuItem component={Link} className={classes.link} href="/pricing" onClick={handleClose}>
                       Pricing
                     </MenuItem>
-                    <MenuItem component={Link} className={classes.link} href="/contact" onClick={handleClose}>
+                    <MenuItem component={Link} className={classes.link} href="/contact/senior-session" onClick={handleClose}>
                       Contact
                     </MenuItem>
                   </MenuList>

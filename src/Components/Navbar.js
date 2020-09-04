@@ -69,7 +69,7 @@ function Navbar() {
           <Button component={Link} href="/pricing" variant="outlined" className={classes.button}>
             Pricing
           </Button>
-          <Button component={Link} href="/contact" variant="outlined" className={classes.button}>
+          <Button component={Link} href="/contact/senior-session" variant="outlined" className={classes.button}>
             Contact
           </Button>
         </Toolbar>

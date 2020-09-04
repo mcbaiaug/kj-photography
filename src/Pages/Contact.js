@@ -67,6 +67,8 @@ function Contact(props) {
   const [description, setDescription] = useState('')
   const [session, setSession] = useState(props.match.params.session)
   const [open, setOpen] = useState(false)
+  // const[error, setError] = useContext(ErrorContext)
+  
 
   // console.log(date)
 
@@ -80,8 +82,11 @@ function Contact(props) {
 
   function sendEmail(e) {
     e.preventDefault()
+
+    // console.log('Context Check')
+    // console.log(error)
     // console.log(e.target)
-    // console.log(e.target.value)
+    // console.log(e)
 
     // emailjs.sendForm('kj', 'kj_photography', e.target, 'user_z4l3HmMlqcbrsI9k53dve').then(
     //   (result) => {
@@ -91,8 +96,7 @@ function Contact(props) {
     //     console.log(error.text)
     //   }
     // )
-    e.target.reset()
-    // e.preventDefault()
+    // e.target.reset()
   }
 
   // function Copyright() {
@@ -140,10 +144,10 @@ function Contact(props) {
                     setFirstName(e.target.value)
                   }}
                 /> */}
-                <ValidationField name="First Name" id="given-name " isRequired />
+                <ValidationField name="First Name" id="given-name " isRequired  />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <ValidationField autoComplete="family-name" id="family-name" name="Last Name" isRequired />
+                <ValidationField autoComplete="family-name" id="family-name" name="Last Name" isRequired  />
               </Grid>
               <Grid item xs={12}>
                 <ValidationField autoComplete="email" id="email" isEmail name="Email Address" isRequired />
@@ -186,7 +190,7 @@ function Contact(props) {
                 <FormControl style={{ minWidth: '100%' }}>
                   <InputLabel htmlFor="">Session</InputLabel>
                   <Select
-                    defaultValue="Session Type"
+                    defaultValue={'senior-session'}
                     color="secondary"
                     value={session}
                     required
