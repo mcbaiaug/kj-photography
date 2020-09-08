@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import ValidationField from '../Components/ValidationField'
-// import emailjs from 'emailjs-com'
+import emailjs from 'emailjs-com'
 import Select from '@material-ui/core/Select'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControl from '@material-ui/core/FormControl'
@@ -67,7 +67,41 @@ function Contact(props) {
   const [description, setDescription] = useState('')
   const [session, setSession] = useState(props.match.params.session)
   const [open, setOpen] = useState(false)
-  // const[error, setError] = useContext(ErrorContext)
+  const [errorMsg, setErrorMsg] = useState(false)
+  const[firstError, setFirstError] = useState(true) 
+  const[lastError, setLastError] = useState(true) 
+  const[emailError, setEmailError] = useState(true) 
+  const[phoneError, setPhoneError] = useState(true) 
+
+  function handleChangeFirst(bool){
+    setFirstError(bool)
+    console.log('first error')
+  }
+  function handleChangeLast(bool){
+    setLastError(bool)
+    console.log('last error')
+
+  }
+  function handleChangeEmail(bool){
+    setEmailError(bool)
+    console.log('email error')
+
+  }
+  function handleChangePhone(bool){
+    setPhoneError(bool)
+    console.log('phone error')
+
+  }
+
+  // function validate(){
+  //   if(firstError || lastError || emailError || phoneError){
+  //     setError(true)
+  //     console.log('big oopsie')
+  //     console.log(error)
+  //   }
+  // }
+
+  // setError(firstError || lastError || emailError || phoneError)
   
 
   // console.log(date)
@@ -78,16 +112,21 @@ function Contact(props) {
     }
 
     setOpen(false)
+    setErrorMsg(false)
   }
 
   function sendEmail(e) {
+    // e.target.reset()
     e.preventDefault()
-
+    
+    // console.log(e.target.value)
     // console.log('Context Check')
     // console.log(error)
     // console.log(e.target)
-    // console.log(e)
+    // kj.photography.wi@gmail.com
 
+    if(!(firstError || lastError || emailError || phoneError)){ 
+      console.log('sent')
     // emailjs.sendForm('kj', 'kj_photography', e.target, 'user_z4l3HmMlqcbrsI9k53dve').then(
     //   (result) => {
     //     console.log(result.text)
@@ -96,7 +135,7 @@ function Contact(props) {
     //     console.log(error.text)
     //   }
     // )
-    // e.target.reset()
+    }
   }
 
   // function Copyright() {
@@ -144,13 +183,14 @@ function Contact(props) {
                     setFirstName(e.target.value)
                   }}
                 /> */}
-                <ValidationField name="First Name" id="given-name " isRequired  />
+                <ValidationField name="First Name" id="given-name " isRequired onChange={handleChangeFirst} />
+               
               </Grid>
               <Grid item xs={12} sm={6}>
-                <ValidationField autoComplete="family-name" id="family-name" name="Last Name" isRequired  />
+                <ValidationField autoComplete="family-name" id="family-name" name="Last Name" isRequired onChange={handleChangeLast} />
               </Grid>
               <Grid item xs={12}>
-                <ValidationField autoComplete="email" id="email" isEmail name="Email Address" isRequired />
+                <ValidationField autoComplete="email" id="email" isEmail name="Email Address" isRequired onChange={handleChangeEmail}/>
               </Grid>
 
               <Grid item xs={12} sm={6}>
@@ -171,7 +211,7 @@ function Contact(props) {
               </Grid>
 
               <Grid item xs={12} sm={6}>
-                <ValidationField id="phone number" name="Phone Number" isRequired />
+                <ValidationField id="phone number" name="Phone Number" isRequired onChange={handleChangePhone} />
               </Grid>
 
               <Grid item xs={12}>
@@ -194,6 +234,7 @@ function Contact(props) {
                     color="secondary"
                     value={session}
                     required
+                    name="Session"
                     onChange={(e) => setSession(e.target.value)}
                     variant="outlined"
                     // inputProps={{
@@ -253,7 +294,11 @@ function Contact(props) {
               fullWidth
               variant="contained"
               className={classes.submit}
-              onClick={() => setOpen(true)}
+              onClick={() => {
+                // validate()
+                // console.log(error)
+                setErrorMsg(firstError || lastError || emailError || phoneError)
+                setOpen(!(firstError || lastError || emailError || phoneError))}} //opposite of error? was true
             >
               Submit
             </Button>
@@ -263,6 +308,11 @@ function Contact(props) {
         <Snackbar open={open} autoHideDuration={80000} onClose={handleClose}>
           <Alert severity="info" onClose={handleClose}>
             Thank you! I will be sending an email shortly!
+          </Alert>
+        </Snackbar>
+        <Snackbar open={errorMsg} autoHideDuration={80000} onClose={handleClose}>
+          <Alert severity="warning" onClose={handleClose}>
+            Form errors!
           </Alert>
         </Snackbar>
         <Box mt={5}>{/* <Copyright /> */}</Box>

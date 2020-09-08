@@ -8,6 +8,26 @@ function ValidationField(props) {
   const [inputFlag, setInputFlag] = useState(false)
   const [input, setInput] = useState('')
   // const [error, setError] = useContext(ErrorContext)
+  function handleChange(bool){
+    props.onChange(bool)
+  }
+
+  function validate(value) {
+    if(value!=='' && !props.isEmail){
+      return false
+    }
+    if(props.isEmail){
+      console.log('check')
+      console.log(value)
+      console.log(!(emailValidator.validate(value)))
+      return !(emailValidator.validate(value))
+    }
+    console.log('aaaaa')
+    return false
+
+    
+ 
+  }
 
   return (
    <React.Fragment>
@@ -23,14 +43,23 @@ function ValidationField(props) {
     // {inputValidator.validate(input)&&error}
     error={inputFlag && (input === '' || (props.isEmail ? !emailValidator.validate(input) : false))}
     value={input}
+    
     helperText={
       inputFlag && (input === '' || (props.isEmail ? !emailValidator.validate(input) : false))
       ? `Invalid ${props.name}!`
       : ''
     }
     color="secondary"
-    onChange={(e) => setInput(e.target.value)}
+    onChange={(e) => {
+      setInput(e.target.value)
+      handleChange(validate(e.target.value))
+      // console.log((input !== '' && (props.isEmail ? !emailValidator.validate(input) : true)))
+     
+      //inputFlag && (input === '' || (props.isEmail ? !emailValidator.validate(input) : false))
+    }}
     />
+   
+    
     {/* {setError(inputFlag && (input === '' || (props.isEmail ? !emailValidator.validate(input) : false)))} */}
     </React.Fragment>
    
