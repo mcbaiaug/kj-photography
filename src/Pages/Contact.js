@@ -44,8 +44,6 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Allura-Regular',
   },
   select: {
-    // textDecoration: 'none',
-    // backgroundColor: 'transparent',
     color: 'secondary',
   },
   highlight:{
@@ -93,18 +91,7 @@ function Contact(props) {
 
   }
 
-  // function validate(){
-  //   if(firstError || lastError || emailError || phoneError){
-  //     setError(true)
-  //     console.log('big oopsie')
-  //     console.log(error)
-  //   }
-  // }
 
-  // setError(firstError || lastError || emailError || phoneError)
-  
-
-  // console.log(date)
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -116,13 +103,10 @@ function Contact(props) {
   }
 
   function sendEmail(e) {
-    // e.target.reset()
+
     e.preventDefault()
     
-    // console.log(e.target.value)
-    // console.log('Context Check')
-    // console.log(error)
-    // console.log(e.target)
+   
     // kj.photography.wi@gmail.com
 
     if(!(firstError || lastError || emailError || phoneError)){ 
@@ -138,18 +122,7 @@ function Contact(props) {
     }
   }
 
-  // function Copyright() {
-  //   return (
-  //     <Typography variant="body1" color="textSecondary" align="center">
-  //       {'Copyright © '}
-  //       <Link color="inherit" href="https://material-ui.com/">
-  //         Companion
-  //       </Link>{' '}
-  //       {new Date().getFullYear()}
-  //       {'.'}
-  //     </Typography>
-  //   )
-  // }
+
 
   return (
     <React.Fragment>
@@ -160,29 +133,10 @@ function Contact(props) {
         <div className={classes.paper}>
           <Typography variant="h4" style={{ fontFamily: 'Allura-Regular', fontDisplay: 'swap' }}>
             Contact
-            {/* {JSON.stringify(props)} */}
-            {/* {props.path.params.session} */}
-            {/* {console.log(props.match.params.session)} */}
           </Typography>
-          {/* FIXME: Add a submit function https://rangle.io/blog/simplifying-controlled-inputs-with-hooks/ */}
-          {/* onSubmit={(event)=> sendEmail(event)} */}
           <form className={classes.form} onSubmit={(event) => sendEmail(event)} noValidate>
             <Grid container spacing={4}>
               <Grid item xs={12} sm={6}>
-                {/* <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="given-name"
-                  label="First Name"
-                  name="First Name"
-                  value={firstName}
-                  // autoComplete="given-name"
-                  color="secondary"
-                  onChange={(e) => {
-                    setFirstName(e.target.value)
-                  }}
-                /> */}
                 <ValidationField name="First Name" id="given-name " isRequired onChange={handleChangeFirst} />
                
               </Grid>
