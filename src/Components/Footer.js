@@ -39,7 +39,7 @@ function Footer() {
           <a href="https://www.instagram.com/kj_photography_wi/" className={classes.ref} target="blank">
             <InstagramIcon />
           </a>
-          <a href="http://www.google.com" className={classes.ref} target="blank">
+          <a href="https://www.facebook.com/KJ-Photography-162087794215893" className={classes.ref} target="blank">
             <FacebookIcon />
           </a>
         </Grid>

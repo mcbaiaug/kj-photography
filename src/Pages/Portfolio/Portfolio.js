@@ -1,4 +1,4 @@
-import React, { useState,} from 'react'
+import React, { useState,useEffect} from 'react'
 import Navbar from '../../Components/Navbar'
 import { makeStyles } from '@material-ui/core/styles'
 import photos from './photos'
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     flexWrap: 'nowrap',
     backgroundColor: theme.palette.primary.main,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       display: 'none',
     },
   },
@@ -71,8 +71,14 @@ function Portfolio() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  // FIXME: Unbind this event
-  window.addEventListener('scroll', checkScrollTop)
+
+  useEffect(() =>{
+    window.addEventListener('scroll', checkScrollTop)
+    return () => {
+      window.removeEventListener('scroll', checkScrollTop)
+
+    }
+  })
 
   function toggle(index) {
     let newArr = [false, false, false, false, false]

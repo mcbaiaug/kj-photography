@@ -47,6 +47,11 @@ const useStyles = makeStyles((theme) => ({
   },
   paragraph:{
     textIndent:'2rem',
+    textAlign:'justify',
+    [theme.breakpoints.down('sm')]: {
+      textIndent:0,
+      textAlign:'center',
+    },
   },
   imgContainer:{
 

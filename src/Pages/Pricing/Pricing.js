@@ -191,7 +191,6 @@ function Pricing() {
                 <Typography variant="h6" className={classes.rate} color="secondary" component="span">
                   $50
                 </Typography>
-                {/* FIXME: Add a new test probably a function that is way less hacky than this approach */}
                 <Typography variant="body2" component="p" className={classes.description} style={1 === cardNum?{display:'block'}:{}}>
                   1 Hour - 1 1/2 Hours
                 </Typography>
@@ -207,7 +206,7 @@ function Pricing() {
                 <Typography variant="h6" className={classes.rate} color="secondary" component="span">
                   $40
                 </Typography>
-                <Typography variant="body2" component="p" className={classes.description} style={1 === cardNum?{display:'block'}:{}}>
+                <Typography variant="body2" component="p" className={classes.description} style={2 === cardNum?{display:'block'}:{}}>
                   1 Hour
                 </Typography>
               </CardContent>
@@ -222,7 +221,7 @@ function Pricing() {
                 <Typography variant="h6" className={classes.rate} color="secondary" component="span">
                   $35/monthly
                 </Typography>
-                <Typography variant="body2" component="p" className={classes.description} style={1 === cardNum?{display:'block'}:{}}>
+                <Typography variant="body2" component="p" className={classes.description} style={3 === cardNum?{display:'block'}:{}}>
                   45 Minutes - 1 Hour
                 </Typography>
               </CardContent>
@@ -237,7 +236,7 @@ function Pricing() {
                 <Typography variant="h6" className={classes.rate} color="secondary" component="span">
                   $40
                 </Typography>
-                <Typography variant="body2" component="p" className={classes.description} style={1 === cardNum?{display:'block'}:{}}>
+                <Typography variant="body2" component="p" className={classes.description} style={4 === cardNum?{display:'block'}:{}}>
                   45 Minutes - 1 Hour
                 </Typography>
               </CardContent>
@@ -252,7 +251,7 @@ function Pricing() {
                 <Typography variant="h6" className={classes.rate} color="secondary" component="span">
                   $40
                 </Typography>
-                <Typography variant="body2" component="p" className={classes.description} style={1 === cardNum?{display:'block'}:{}}>
+                <Typography variant="body2" component="p" className={classes.description} style={5 === cardNum?{display:'block'}:{}}>
                   1 Hour - 1 1/2 Hours
                 </Typography>
               </CardContent>
